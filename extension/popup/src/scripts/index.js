@@ -10,6 +10,8 @@ const proxyStore = new Store({
   portName: 'example'
 });
 
+
+
 render(
     <Provider store={proxyStore}><App /></Provider>
   , document.getElementById('app'));

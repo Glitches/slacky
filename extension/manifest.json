@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "RCR",
-  "description": "React, Chrome, and Redux example",
+  "name": "SLACKY",
+  "description": "Easily share url on Slack",
   "version": "0.0.0.1",
   "background": {
     "scripts": [
@@ -12,5 +12,8 @@
   "browser_action": {
     "default_title": "Slacky",
     "default_popup": "popup.html"
-  }
+  },
+  "permissions": [
+    "identity"
+  ]
 }
