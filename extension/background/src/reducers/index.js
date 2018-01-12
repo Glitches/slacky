@@ -1,9 +1,9 @@
 import {combineReducers} from 'redux';
 
-import count from './count';
 import login from './login';
+import channels from './channels';
 
 export default combineReducers({
-    count,
+    channels,
     login
 });

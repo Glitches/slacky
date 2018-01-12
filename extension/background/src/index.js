@@ -18,6 +18,7 @@ const store = createStore(
 
 store.dispatch(authorize());
 
+
 wrapStore(store, {
     portName: 'example'
 });

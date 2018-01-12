@@ -1,9 +1,16 @@
-import { AUTH_SUCCESS, AUTH_ONLOAD, AUTH_FAIL } from '../actions/actionTypes';
+import { AUTH_SUCCESS, AUTH_ONLOAD, AUTH_FAIL, LOG_IN } from '../actions/actionTypes';
 
-const initialState = '';
+const initialState = {
+    state: '',
+    token: ''
+};
 
 export default (state = initialState, action) => {
     switch (action.type) {
+    case LOG_IN:
+        return {
+            token: action.token
+        };
     case AUTH_SUCCESS:  
         return state;
     case AUTH_ONLOAD:  

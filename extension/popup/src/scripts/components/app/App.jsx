@@ -17,7 +17,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        Click Count: {this.props.count}
+        <h1>SLACKY</h1>
       </div>
     );
   }

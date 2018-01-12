@@ -8,9 +8,10 @@ export const authorizationSuccess = token => (
     }
 );
 
+
 export const authorize = () => {
     return dispatch => {
-        return OAuth().then(token => {
+        return new Promise((reselve, reject) => OAuth()).then(token => {
             dispatch(authorizationSuccess(token));
         }).catch( error => {
             throw( error );
