@@ -7,7 +7,7 @@ module.exports = {
     ],
 
     output: {
-        filename: 'event.js',
+        filename: 'background.js',
         path: path.join(__dirname, '../', 'build')
     },
 

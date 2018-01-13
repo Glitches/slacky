@@ -10,15 +10,15 @@ import { authorize } from './actions/actions';
 import {wrapStore} from 'react-chrome-redux';
 
 const store = createStore(
-    rootReducer,
-    applyMiddleware(thunk),
-    applyMiddleware(logger)
-    // loadState()
+  rootReducer,
+  applyMiddleware(thunk),
+  applyMiddleware(logger)
+  // loadState()
 );
 
-store.dispatch(authorize());
+// store.dispatch(authorize());
 
 
 wrapStore(store, {
-    portName: 'example'
+  portName: 'example'
 });

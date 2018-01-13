@@ -4,6 +4,7 @@ import {render} from 'react-dom';
 import App from './components/app/App';
 import {Store} from 'react-chrome-redux';
 import {Provider} from 'react-redux';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 const proxyStore = new Store({
   portName: 'example'
@@ -13,5 +14,9 @@ const proxyStore = new Store({
 
 
 render(
-    <Provider store={proxyStore}><App /></Provider>
+    <Provider store={proxyStore}>
+      <MuiThemeProvider>
+        <App />
+      </MuiThemeProvider>
+    </Provider>
   , document.getElementById('app'));
