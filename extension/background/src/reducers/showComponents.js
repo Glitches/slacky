@@ -1,23 +1,20 @@
 import {
-  GET_CHANNELS, POST_LINK
+  HIDE_LOGIN_BUTTON
 } from '../actions/actionTypes';
 
 
 const initialState = {
-  channels: [],
-  link: ''
+  hideLoginButton: true,
+  showChannelsList: false
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
-  case GET_CHANNELS:
-    return {
-      channels: action.channels
-    };
-    case POST_LINK:
+  case HIDE_LOGIN_BUTTON:
     return {
       ...state,
-      link: action.link
+      hideLoginButton: !state.hideLoginButton,
+      showChannelsList: !state.showChannelsList
     };
   default:
     return state;

@@ -3,10 +3,9 @@ import {connect} from 'react-redux';
 import authorize from '../../../../../background/src/actions/actions';
 import './app.css';
 import FlatButton from 'material-ui/FlatButton';
-
 import Title from '../title/index';
-
-
+import ChannelsList from '../channelsList/channelsList';
+const slack = require('slack');
 
 const configOAuth = {
   // 'url': 'https://pure-refuge-96117.herokuapp.com/auth',
@@ -17,32 +16,32 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.login = this.login.bind(this);
+    this.renderList = this.renderList.bind(this);
   }
   
   
   
   getChannelList(token) {
-    const channelListUrl = `https://slack.com/api/channels.list?token=${token}&pretty=1`;
-    console.log(channelListUrl);
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", channelListUrl, true)
-    xhr.onload = () => {
-        const response = JSON.parse(xhr.responseText);
-      if (xhr.readyState == 4 && xhr.status == "200") {
-        const filteredChannels = response.channels.filter(channel => {
+    slack.channels.list({token: token}).then( channels => {
+      // console.log(channels)})
+        const filteredChannels = channels.channels.filter(
+        channel => {
           if (!channel.is_archived) return channel;
         });
         console.table(filteredChannels);
         this.props.dispatch({
           type: 'GET_CHANNELS',
-          channels: JSON.stringify(filteredChannels)
+          channels: filteredChannels
         })
-      } else {
-        console.error(response);
-      }
+        this.props.dispatch(
+          {
+            type: 'HIDE_LOGIN_BUTTON'
+          }
+        )
+      })
+      .catch(error => console.log(error))
     };
-    xhr.send(null);
-  };
+  
 
   login () {
     chrome.identity.launchWebAuthFlow(configOAuth, redirectUrl => {
@@ -57,8 +56,8 @@ class App extends Component {
       .then(response => response.json())
       .then(data => {
         data = JSON.parse(data);
-      console.log(data);
-        console.log(data.access_token);
+      // console.log(data);
+        // console.log(data.access_token);
         if (data.ok) {
           this.props.dispatch({
             type: 'AUTH_SUCCESS',
@@ -71,34 +70,38 @@ class App extends Component {
     });
   }
 
-  //30957858775.298344180625.c42d1a8ceec1453a743fa217c10d924282b9b09de57247d1cc8a2bc28e9a529f
-
-    // authorize().then(data => console.log(data));
-
-    // if (token) this.props.dispatch({
-    //   type: 'LOG_IN',
-    //   token
-    // });
-
-
-  componentDidMount() {
-    document.addEventListener('click', () => {
-      // this.getChannelList();
-      // this.props.dispatch({
-      //   type: 'ADD_COUNT'
-      // });
-    });
+  renderList () {
+    // console.log(this.props)
+    if (this.props.channels && this.props.channels.length !== 0) {
+      return (
+        <ChannelsList />
+      )
+    }
   }
 
   render() {
-    // console.log(this.props);
+    // console.log('render', this.props);
     return (
       <div className="wrapper">
-      <Title/>
-        <FlatButton label="Login" onClick={this.login}/>
-      {/* <ChannelsList {...this.props} /> */}
+        <Title/>
+          <FlatButton label="Login" onClick={this.login}/>
+          {this.renderList()}
       </div>
-    );
+     )
+    // return (this.props.login !== undefined && this.props.login.token !== '') ?
+    // (
+    //   <div className="wrapper">
+    //     <Title/>
+    //       <FlatButton label="Login" onClick={this.login}/>
+    //   </div>
+    // ) 
+    // :
+    // (
+    //     <div className="wrapper">
+    //       <Title />
+    //         <ChannelsList />
+    //     </div>
+    //   )
   }
 }
 
@@ -108,29 +111,14 @@ class App extends Component {
 const mapStateToProps = (state) => {
   return {
     channels: state.channels
+    // login: state.login
   };
 };
+
+// const mapDispatchToProps = (dispatch) => ({
+//     sendLink: () => dispatch()
+// })
 
 export default connect(mapStateToProps)(App);
 
 
-  //   const    myHeaders = new Headers();
-  //     const myInit = {
-  //       method: 'GET',
-  //       headers: myHeaders,
-  //       mode: 'cors',
-  //       cache: 'default'
-  //     };
-  // fetch(channelListUrl, myInit).then( response => {
-  //     console.log(response);
-  //     const filteredChannels = response.channels.filter(channel => {
-  //       if (!channel.is_archived) return channel;
-  //     });
-  //     console.table(filteredChannels);
-  //     this.props.dispatch({
-  //       type: 'GET_CHANNELS',
-  //       channels: JSON.stringify(filteredChannels)
-  //     })
-  //   })
-  //   .catch( console.error(response));
-  // }

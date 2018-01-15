@@ -15,6 +15,7 @@
   },
   "permissions": [
     "identity",
+    "storage",
     "https://slack.com/api/*"
   ],
   "key": "hglchoghlfbcblikifhgdjjmokplmicf"

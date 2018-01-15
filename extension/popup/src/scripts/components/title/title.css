@@ -7,4 +7,5 @@ img {
   display: flex;
   flex-direction: row;
   border-bottom: 1px solid black;
+  margin-bottom: 1rem;
 }
