@@ -4,6 +4,8 @@ import authorize from '../../../../../background/src/actions/actions';
 import './app.css';
 import FlatButton from 'material-ui/FlatButton';
 
+import raccoonImg from '../../../assets/raccoon.jpg';
+
 const channelListUrl = 'https://slack.com/api/channels.list?token=xoxp-30957858775-242778740935-297975183412-fa629c31a78ee3713b41cca77d5f249e&pretty=1';
 const configOAuth = {
   // 'url': 'https://pure-refuge-96117.herokuapp.com/auth',
