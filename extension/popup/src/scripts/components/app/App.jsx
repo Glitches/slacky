@@ -70,14 +70,17 @@ class App extends Component {
       let token = arr[1];
       console.log(token);
       console.log(this.props)
-      this.props.dispatch({
-        type: 'AUTH_SUCCESS',
-        token: token
-      })
+
 
       fetch(`http://localhost:5000/validate?code=${token}`)
       .then(response => response.json())
-      .then(data => console.log(data))
+      .then(data => {
+        console.log(data);
+        this.props.dispatch({
+          type: 'AUTH_SUCCESS',
+          token: token
+        })
+      })
       .catch(err => console.error(err))
     });
   }
@@ -94,7 +97,7 @@ class App extends Component {
 
   componentDidMount() {
     document.addEventListener('click', () => {
-      this.getChannelList();
+      // this.getChannelList();
       // this.props.dispatch({
       //   type: 'ADD_COUNT'
       // });
