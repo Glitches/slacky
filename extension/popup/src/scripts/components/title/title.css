@@ -1,0 +1,10 @@
+img {
+  width: 24px;
+  height: 24px;
+}
+
+.wrapTitle {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid black;
+}
