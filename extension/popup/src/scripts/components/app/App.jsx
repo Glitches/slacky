@@ -8,7 +8,6 @@ import Title from '../title/index';
 
 
 
-const channelListUrl = 'https://slack.com/api/channels.list?token=xoxp-30957858775-242778740935-297975183412-fa629c31a78ee3713b41cca77d5f249e&pretty=1';
 const configOAuth = {
   // 'url': 'https://pure-refuge-96117.herokuapp.com/auth',
   'url': 'http://localhost:5000/auth',
@@ -19,30 +18,12 @@ class App extends Component {
     super(props);
     this.login = this.login.bind(this);
   }
-
-
-
-  getChannelList() {
-  //   const    myHeaders = new Headers();
-  //     const myInit = {
-  //       method: 'GET',
-  //       headers: myHeaders,
-  //       mode: 'cors',
-  //       cache: 'default'
-  //     };
-  // fetch(channelListUrl, myInit).then( response => {
-  //     console.log(response);
-  //     const filteredChannels = response.channels.filter(channel => {
-  //       if (!channel.is_archived) return channel;
-  //     });
-  //     console.table(filteredChannels);
-  //     this.props.dispatch({
-  //       type: 'GET_CHANNELS',
-  //       channels: JSON.stringify(filteredChannels)
-  //     })
-  //   })
-  //   .catch( console.error(response));
-  // }
+  
+  
+  
+  getChannelList(token) {
+    const channelListUrl = `https://slack.com/api/channels.list?token=${token}&pretty=1`;
+    console.log(channelListUrl);
     const xhr = new XMLHttpRequest();
     xhr.open("GET", channelListUrl, true)
     xhr.onload = () => {
@@ -65,21 +46,26 @@ class App extends Component {
 
   login () {
     chrome.identity.launchWebAuthFlow(configOAuth, redirectUrl => {
-      console.log(redirectUrl);
+      // console.log(redirectUrl);
       let arr = redirectUrl.match(/\?code\=(.+)\&/);
       let token = arr[1];
-      console.log(token);
-      console.log(this.props)
+      // console.log(token);
+      // console.log(this.props)
 
 
       fetch(`http://localhost:5000/validate?code=${token}`)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
-        this.props.dispatch({
-          type: 'AUTH_SUCCESS',
-          token: token
-        })
+        data = JSON.parse(data);
+      console.log(data);
+        console.log(data.access_token);
+        if (data.ok) {
+          this.props.dispatch({
+            type: 'AUTH_SUCCESS',
+            token: data
+          })
+          this.getChannelList(data.access_token);
+        }
       })
       .catch(err => console.error(err))
     });
@@ -126,3 +112,25 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps)(App);
+
+
+  //   const    myHeaders = new Headers();
+  //     const myInit = {
+  //       method: 'GET',
+  //       headers: myHeaders,
+  //       mode: 'cors',
+  //       cache: 'default'
+  //     };
+  // fetch(channelListUrl, myInit).then( response => {
+  //     console.log(response);
+  //     const filteredChannels = response.channels.filter(channel => {
+  //       if (!channel.is_archived) return channel;
+  //     });
+  //     console.table(filteredChannels);
+  //     this.props.dispatch({
+  //       type: 'GET_CHANNELS',
+  //       channels: JSON.stringify(filteredChannels)
+  //     })
+  //   })
+  //   .catch( console.error(response));
+  // }
