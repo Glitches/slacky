@@ -6,7 +6,8 @@ import FlatButton from 'material-ui/FlatButton';
 
 const channelListUrl = 'https://slack.com/api/channels.list?token=xoxp-30957858775-242778740935-297975183412-fa629c31a78ee3713b41cca77d5f249e&pretty=1';
 const configOAuth = {
-  'url': 'https://pure-refuge-96117.herokuapp.com/auth',
+  // 'url': 'https://pure-refuge-96117.herokuapp.com/auth',
+  'url': 'http://localhost:5000/auth',
   'interactive': true
 };
 class App extends Component {
@@ -15,8 +16,8 @@ class App extends Component {
     this.login = this.login.bind(this);
   }
 
-  
-  
+
+
   getChannelList() {
   //   const    myHeaders = new Headers();
   //     const myInit = {
@@ -62,15 +63,23 @@ class App extends Component {
     chrome.identity.launchWebAuthFlow(configOAuth, redirectUrl => {
       console.log(redirectUrl);
       let arr = redirectUrl.match(/\?code\=(.+)\&/);
-      let token = `xoxp-${arr[1]}`;
+      let token = arr[1];
       console.log(token);
       console.log(this.props)
       this.props.dispatch({
         type: 'AUTH_SUCCESS',
         token: token
       })
+
+      fetch(`http://localhost:5000/validate?code=${token}`)
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(err => console.error(err))
     });
   }
+
+  //30957858775.298344180625.c42d1a8ceec1453a743fa217c10d924282b9b09de57247d1cc8a2bc28e9a529f
+
     // authorize().then(data => console.log(data));
 
     // if (token) this.props.dispatch({
@@ -92,7 +101,7 @@ class App extends Component {
     // console.log(this.props);
     return (
       <div className="wrapper">
-        <h1>SLACKY</h1> 
+        <h1>SLACKY</h1>
         <FlatButton label="Login" onClick={this.login}/>
       {/* <ChannelsList {...this.props} /> */}
       </div>
