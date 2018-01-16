@@ -4,7 +4,6 @@ import slack from 'slack';
 import './channelsList.css';
 
 import { postLinkOnChannel } from '../../../../../background/src/actions/actions';
-import { List, ListItem } from 'material-ui/List';
 
 class ChannelsList extends React.Component {
   constructor (props) {
@@ -35,14 +34,15 @@ class ChannelsList extends React.Component {
   render() {
     return (
     <div className="channelsList">
-        <List>
+        <h2>Channels</h2>
+        <ol className="simple-list">
         {this.props.channels.channels.map(channel => {
           return (
-          <ListItem key={channel.id} primaryText={channel.name_normalized} onClick={(e) => this.postMessage(e,channel)} />
+            <li key={channel.id} onClick={(e) => this.postMessage(e, channel)}>{channel.name_normalized}</li>
           )
         })
     }
-        </List>
+        </ol>
       </div>
     )
   }
