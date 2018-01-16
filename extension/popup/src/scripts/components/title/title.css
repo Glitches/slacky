@@ -8,4 +8,8 @@ img {
   flex-direction: row;
   border-bottom: 1px solid black;
   margin-bottom: 1rem;
+  box-shadow: 6px 6px 2px 1px rgba(0, 0, 255, .2);
+  background-color: ghostwhite;
+  position: fixed;
+
 }

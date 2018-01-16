@@ -1,9 +1,15 @@
 .channelsList {
   /* width: 200px;
   margin: 30px; */
-  margin-top: 2rem;
+  padding-left: 2rem;
+  padding-top: 2rem;
+  margin-bottom: 1rem;
   max-height: 300px;
   overflow: scroll;
+}
+
+.channelsList::-webkit-scrollbar {
+  display: none;
 }
 
 ol.simple-list {
@@ -38,7 +44,7 @@ ol.simple-list>li:before {
 }
 
 ol.simple-list>li:hover {
-  background-color: rgb(180, 180, 180);
+  background-color: ghostwhite;
 }
 
 
