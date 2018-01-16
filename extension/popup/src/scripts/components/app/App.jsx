@@ -23,7 +23,6 @@ class App extends Component {
   
   getChannelList(token) {
     slack.channels.list({token: token}).then( channels => {
-      // console.log(channels)})
         const filteredChannels = channels.channels.filter(
         channel => {
           if (!channel.is_archived) return channel;
@@ -45,19 +44,13 @@ class App extends Component {
 
   login () {
     chrome.identity.launchWebAuthFlow(configOAuth, redirectUrl => {
-      // console.log(redirectUrl);
       let arr = redirectUrl.match(/\?code\=(.+)\&/);
       let token = arr[1];
-      // console.log(token);
-      // console.log(this.props)
-
 
       fetch(`http://localhost:5000/validate?code=${token}`)
       .then(response => response.json())
       .then(data => {
         data = JSON.parse(data);
-      // console.log(data);
-        // console.log(data.access_token);
         if (data.ok) {
           this.props.dispatch({
             type: 'AUTH_SUCCESS',
@@ -71,7 +64,6 @@ class App extends Component {
   }
 
   renderList () {
-    // console.log(this.props)
     if (this.props.channels && this.props.channels.length !== 0) {
       return (
         <ChannelsList />
@@ -80,7 +72,6 @@ class App extends Component {
   }
 
   render() {
-    // console.log('render', this.props);
     return (
       <div className="wrapper">
         <Title/>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import slack from 'slack';
 
 import { postLinkOnChannel } from '../../../../../background/src/actions/actions';
 import { List, ListItem } from 'material-ui/List';
@@ -7,21 +8,35 @@ import { List, ListItem } from 'material-ui/List';
 class ChannelsList extends React.Component {
   constructor (props) {
     super(props);
-    this.state = {
-      channels: []
-    };
+    this.postMessage = this.postMessage.bind(this);
+
   }
 
 
-    
+    postMessage (e, channel) {
+      const id = channel.id;
+      const token = this.props.login.token.access_token;
+      const options = { 
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }};
+      chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+        const linkEncoded = encodeURIComponent(tabs[0].url);
+        const urlComplete = `https://slack.com/api/chat.postMessage?token=${token}&channel=${id}&text=${linkEncoded}&as_user=true&unfurl_links=true&pretty=1` ;
+        fetch(urlComplete,options)
+          .then(response => response.json())
+          .then(data => console.log(data));
+      });
+    }
 
-  render () {
-    console.log('renderlist', this.props)
+  render() {
     return (
         <List>
         {this.props.channels.channels.map(channel => {
           return (
-          <ListItem key={channel.id} primaryText={channel.name_normalized} onClick={() => this.sendLink} />
+          <ListItem key={channel.id} primaryText={channel.name_normalized} onClick={(e) => this.postMessage(e,channel)} />
           )
         })
     }
@@ -29,7 +44,6 @@ class ChannelsList extends React.Component {
     )
   }
 }
-
 
 
 const mapStateToProps = (state) => ({
