@@ -6,7 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Title from '../title/index';
 import ChannelsList from '../channelsList/channelsList';
 const slack = require('slack');
-// import PreviewLink from '../previewLink/container';
+import PreviewLink from '../previewLink/container';
 
 const configOAuth = {
   // 'url': 'https://pure-refuge-96117.herokuapp.com/auth',
@@ -85,7 +85,7 @@ class App extends Component {
     (
       <div className="wrapper">
           <Title />
-            {/* <PreviewLink/> */}
+            <PreviewLink/>
             {this.renderList()}
         </div>
       )

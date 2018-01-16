@@ -5,3 +5,4 @@ export const LOG_IN = 'LOG_IN';
 export const GET_CHANNELS = 'GET_CHANNELS';
 export const HIDE_LOGIN_BUTTON = 'HIDE_LOGIN_BUTTON';
 export const POST_LINK = 'POST_LINK';
+export const SHOW_PREVIEW = 'SHOW_PREVIEW';

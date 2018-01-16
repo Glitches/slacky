@@ -14,3 +14,11 @@ export const postLinkOnChannel = link => (
     payload: link
   }
 );
+
+export const showPreview = link => (
+  {
+    type: types.SHOW_PREVIEW,
+    url: link
+  }
+);
+

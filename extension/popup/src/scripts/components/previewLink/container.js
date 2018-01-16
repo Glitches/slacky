@@ -1,30 +1,75 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-export default class PreviewLink extends React.Component {
+import FlatButton from 'material-ui/FlatButton';
+import PreviewComponent from './component';
+
+import './component.css';
+
+class PreviewLink extends React.Component {
   constructor (props) {
     super(props);
-    this.previewMessage = this.previewMessage.bind(this)
+    this.previewMessage = this.previewMessage.bind(this);
+    this.state = {
+      loading: false,
+      image: '',
+      title: '',
+      description: ''
+    }
   }
 
-  previewMessage() {
-    const targetUrl = 'https://www.youtube.com/watch?v=pifOhHFhOkM'
-    fetch(targetUrl)
+  previewMessage (url) {
+    console.log(this.props);
+    fetch(`http://localhost:5000/preview?uri=${url}`)
       .then(response => response.text())
-      .then(data => console.log(data))
+      .then(data => {
+        data = JSON.parse(data);
+        console.log(data);
+        this.setState({
+          loading: false,
+          image: data.image,
+          title: data.title,
+          description: data.description
+        })
+      })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps)
+    if ((!this.props.showComponents && nextProps.showComponents) 
+    || (this.props.showComponents && this.props.showComponents.url !== nextProps.showComponents.url)) {
+      this.setState({
+        loading: true
+      });
+      this.previewMessage(nextProps.showComponents.url);
+    }
   }
 
   render() {
-    console.log('here')
-    this.previewMessage();
+    if(!this.props.showComponents) return null;
     return (
-      <div>
-        <p>{this.previewMessage}</p>
+      <div className="previewComponent">
+      {this.state.loading 
+        ? <div className="previewWrap">Loading...</div>
+        :<div>
+            <p><b>Preview</b></p>
+          <p>{this.state.title}</p>
+          <img className="previewImage" src={this.state.image} alt="Url Preview"/>
+          <p>{this.state.description}</p>
+          </div>}
       </div>
     )
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    showComponents: state.showComponents,
+  };
+};
 
+
+export default connect(mapStateToProps)(PreviewLink);
 
 
 

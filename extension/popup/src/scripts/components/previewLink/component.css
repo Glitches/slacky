@@ -1,0 +1,12 @@
+.previewImage {
+  min-width: 10rem;
+  min-height: 10rem;
+}
+
+.previewComponent {
+  border-bottom: 1px solid black;
+}
+
+.previewWrap {
+  padding-bottom: 8px;
+}
