@@ -16,6 +16,10 @@
   "permissions": [
     "identity",
     "storage",
+    "tabs",
+    "activeTab",
+    "http://*/*",
+    "https://*/*",
     "https://slack.com/api/*"
   ],
   "key": "hglchoghlfbcblikifhgdjjmokplmicf"

@@ -13,8 +13,8 @@ import {wrapStore} from 'react-chrome-redux';
 const store = createStore(
   rootReducer,
   loadState(),
-  applyMiddleware(thunk),
-  applyMiddleware(logger)
+  applyMiddleware(thunk), 
+  applyMiddleware(logger),
 );
 
 // store.dispatch(authorize());

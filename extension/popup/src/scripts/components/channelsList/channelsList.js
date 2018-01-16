@@ -12,27 +12,19 @@ class ChannelsList extends React.Component {
     };
   }
 
-  // componentWillReceiveProps ( nextProps ) {
-  //   if (this.props.channels.length !== 0) {
-  //     this.setState(
-  //       {channels: nextProps.channels}
-  //     );
-  //   }
-  // }
+
+    
 
   render () {
     console.log('renderlist', this.props)
     return (
         <List>
-          {/* <ol>   */}
         {this.props.channels.channels.map(channel => {
           return (
-        // <li>channel.name_normalized</li>
           <ListItem key={channel.id} primaryText={channel.name_normalized} onClick={() => this.sendLink} />
           )
         })
     }
-    {/* </ol> */}
         </List>
     )
   }
