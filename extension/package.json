@@ -9,7 +9,10 @@
   },
   "author": "Andrea Ceccarelli",
   "dependencies": {
+    "fs": "0.0.1-security",
+    "got": "^8.0.2",
     "material-ui": "^0.20.0",
+    "metascraper": "^3.4.3",
     "react": "^15.5.0",
     "react-chrome-redux": "^1.5.0",
     "react-dom": "^15.5.0",
@@ -17,7 +20,10 @@
     "redux": "^3.0.4",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
-    "slack": "^10.0.0"
+    "require-from-string": "^2.0.1",
+    "scrape-metadata": "^2.0.0",
+    "slack": "^10.0.0",
+    "url-metadata": "^2.1.7"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import slack from 'slack';
+import './channelsList.css';
 
 import { postLinkOnChannel } from '../../../../../background/src/actions/actions';
 import { List, ListItem } from 'material-ui/List';
@@ -33,6 +34,7 @@ class ChannelsList extends React.Component {
 
   render() {
     return (
+    <div className="channelsList">
         <List>
         {this.props.channels.channels.map(channel => {
           return (
@@ -41,6 +43,7 @@ class ChannelsList extends React.Component {
         })
     }
         </List>
+      </div>
     )
   }
 }

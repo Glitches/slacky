@@ -6,6 +6,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Title from '../title/index';
 import ChannelsList from '../channelsList/channelsList';
 const slack = require('slack');
+// import PreviewLink from '../previewLink/container';
 
 const configOAuth = {
   // 'url': 'https://pure-refuge-96117.herokuapp.com/auth',
@@ -72,27 +73,22 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <div className="wrapper">
+    console.log(this.props)
+    return (this.props && this.props.channels && this.props.channels.channels.length === 0) ?
+          (
+            <div className="wrapper">
         <Title/>
           <FlatButton label="Login" onClick={this.login}/>
-          {this.renderList()}
       </div>
-     )
-    // return (this.props.login !== undefined && this.props.login.token !== '') ?
-    // (
-    //   <div className="wrapper">
-    //     <Title/>
-    //       <FlatButton label="Login" onClick={this.login}/>
-    //   </div>
-    // ) 
-    // :
-    // (
-    //     <div className="wrapper">
-    //       <Title />
-    //         <ChannelsList />
-    //     </div>
-    //   )
+    ) 
+    :
+    (
+      <div className="wrapper">
+          <Title />
+            {/* <PreviewLink/> */}
+            {this.renderList()}
+        </div>
+      )
   }
 }
 
@@ -101,8 +97,8 @@ class App extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    channels: state.channels
-    // login: state.login
+    channels: state.channels,
+    login: state.login
   };
 };
 
