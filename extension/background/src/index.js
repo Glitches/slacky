@@ -24,6 +24,8 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
     store.dispatch(showPreview(tab.url));
   });
 });
+
+
 store.subscribe(throttle(() => {
   saveState({
     login: store.getState().login,
