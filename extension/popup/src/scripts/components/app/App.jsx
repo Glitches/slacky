@@ -7,7 +7,7 @@ import Title from '../title/index';
 import ChannelsList from '../channelsList/channelsList';
 const slack = require('slack');
 import PreviewLink from '../previewLink/container';
-
+import createChannels from '../../../../../background/src/index';
 const configOAuth = {
   // 'url': 'https://pure-refuge-96117.herokuapp.com/auth',
   'url': 'http://localhost:5000/auth',
@@ -21,26 +21,6 @@ class App extends Component {
   }
   
   
-  
-  getChannelList(token) {
-    slack.channels.list({token: token}).then( channels => {
-        const filteredChannels = channels.channels.filter(
-        channel => {
-          if (!channel.is_archived) return channel;
-        });
-        // console.table(filteredChannels);
-        this.props.dispatch({
-          type: 'GET_CHANNELS',
-          channels: filteredChannels
-        })
-        this.props.dispatch(
-          {
-            type: 'HIDE_LOGIN_BUTTON'
-          }
-        )
-      })
-      .catch(error => console.log(error))
-    };
   
 
   login () {
@@ -57,7 +37,7 @@ class App extends Component {
             type: 'AUTH_SUCCESS',
             token: data
           })
-          this.getChannelList(data.access_token);
+          createChannels(data.access_token);
         }
       })
       .catch(err => console.error(err))

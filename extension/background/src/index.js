@@ -4,11 +4,13 @@ import thunk from 'redux-thunk';
 import { saveState, loadState } from './localStorage';
 import logger from 'redux-logger';
 import throttle from 'lodash/throttle';
+import './api.js';
 
-import { showPreview } from './actions/actions';
+import { showPreview, getChannels, hideLoginButton } from './actions/actions';
 
 
 import {wrapStore} from 'react-chrome-redux';
+import { getChannelList } from './api.js';
 
 const store = createStore(
   rootReducer,
@@ -24,6 +26,11 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
     store.dispatch(showPreview(tab.url));
   });
 });
+
+export const createChannels = async () => {
+  const channels = await getChannelList();
+  store.dispatch(getChannels(channels));
+}
 
 
 store.subscribe(throttle(() => {

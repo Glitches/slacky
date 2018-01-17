@@ -15,7 +15,7 @@ export default (state = initialState, action) => {
     return {
       ...state,
       url: action.url
-    }
+    };
   case HIDE_LOGIN_BUTTON:
     return {
       ...state,

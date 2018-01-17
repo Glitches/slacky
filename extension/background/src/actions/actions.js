@@ -22,3 +22,14 @@ export const showPreview = link => (
   }
 );
 
+export const getChannels = filteredChannels => (
+  {
+    type: 'GET_CHANNELS',
+    channels: filteredChannels
+  });
+
+export const hideLoginButton = () => (
+  {
+    type: 'HIDE_LOGIN_BUTTON'
+  });
+
