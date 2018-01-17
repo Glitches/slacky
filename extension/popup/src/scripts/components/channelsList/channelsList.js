@@ -32,7 +32,8 @@ class ChannelsList extends React.Component {
     }
 
   render() {
-    return (
+  
+    return (this.props.channels.channels) ? (
     <div className="channelsList">
         <h2>Channels</h2>
         <ol className="simple-list">
@@ -45,6 +46,8 @@ class ChannelsList extends React.Component {
         </ol>
       </div>
     )
+    :
+    (<p>...Loading</p>)
   }
 }
 

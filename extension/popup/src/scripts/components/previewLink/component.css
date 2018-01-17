@@ -5,11 +5,13 @@
 
 .previewComponent {
   border-bottom: 1px solid black;
+  border-radius: 5px;
   box-shadow: 6px 6px 2px 1px rgba(0, 0, 255, .2);
 }
 
 .previewWrap {
   padding: 0px 6px 3px 6px;
+
 }
 
 .loadingWrap {
