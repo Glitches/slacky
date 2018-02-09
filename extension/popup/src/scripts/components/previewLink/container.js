@@ -53,7 +53,7 @@ class PreviewLink extends React.Component {
         ? <div className="loadingWrap">Loading...</div>
         : <div className="previewWrap">
             <h2>Preview</h2>
-          <p>{this.state.title}</p>
+            <p><i>{this.state.title}</i></p>
           <img className="previewImage" src={this.state.image} alt="Url Preview"/>
           <p>{this.state.description}</p>
           </div>}

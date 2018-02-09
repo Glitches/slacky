@@ -28,7 +28,7 @@ class App extends Component {
         channel => {
           if (!channel.is_archived) return channel;
         });
-        console.table(filteredChannels);
+        // console.table(filteredChannels);
         this.props.dispatch({
           type: 'GET_CHANNELS',
           channels: filteredChannels

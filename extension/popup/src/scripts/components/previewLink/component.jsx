@@ -7,7 +7,6 @@ export const PreviewComponent = (props) => {
   return (
     <div>
       <div>Preview</div>
-      {/* <p>{t.title}</p>  */}
     </div> 
   )
 };

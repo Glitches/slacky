@@ -2,7 +2,7 @@
   /* width: 200px;
   margin: 30px; */
   padding-left: 2rem;
-  padding-top: 2rem;
+  padding-top: 1.5rem;
   margin-bottom: 1rem;
   max-height: 300px;
   overflow: scroll;
@@ -44,7 +44,7 @@ ol.simple-list>li:before {
 }
 
 ol.simple-list>li:hover {
-  background-color: ghostwhite;
+  background-color: rgba(248, 248, 255, 0.705);
 }
 
 
