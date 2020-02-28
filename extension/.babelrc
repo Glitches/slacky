@@ -1,3 +1,9 @@
 {
-    "presets": ["es2015", "stage-0", "react"]
+    "presets": [
+        "@babel/preset-react"
+    ],
+    "plugins": [
+        "@babel/plugin-syntax-dynamic-import",
+        "@babel/plugin-proposal-export-default-from"
+    ]
 }
