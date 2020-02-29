@@ -1,45 +1,43 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import "./app.css";
-import FlatButton from "@material-ui/core/Button/Button";
-import { Title } from "../../components/title/index";
-import ChannelsList from "../../components/channelsList/channelsList";
-import slack from "slack";
-import PreviewLink from "../../components/previewLink/container";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import './app.css';
+import FlatButton from '@material-ui/core/Button/Button';
+import slack from 'slack';
+import { Title } from '../../components/title';
+import ChannelsList from '../../components/channelsList/channelsList';
+import PreviewLink from '../../components/previewLink/container';
 
-export namespace App {
-  export interface AppProps {
-    onChange: (Action: any) => void;
+export interface AppProps {
+  onChange: (Action: any) => void;
+  channels: {
     channels: {
-      channels: {
-        id: number;
-        name_normalized: string;
-      }[];
-    };
-  }
+      id: number;
+      name_normalized: string;
+    }[];
+  };
 }
 
 const configOAuth = {
   // 'url': 'https://pure-refuge-96117.herokuapp.com/auth',
-  url: "http://localhost:5000/auth",
+  url: 'http://localhost:5000/auth',
   interactive: true
 };
 
-const App: React.FC<App.AppProps> = props => {
+const App: React.FC<AppProps> = ({ onChange, channels }) => {
   function getChannelList(token) {
-    slack.channels
+    return slack.channels
       .list({ token })
       .then(channels => {
         const filteredChannels = channels.channels.filter(channel => {
           if (!channel.is_archived) return channel;
         });
         // console.table(filteredChannels);
-        this.props.onChange({
-          type: "GET_CHANNELS",
+        onChange({
+          type: 'GET_CHANNELS',
           channels: filteredChannels
         });
-        this.props.onChange({
-          type: "HIDE_LOGIN_BUTTON"
+        onChange({
+          type: 'HIDE_LOGIN_BUTTON'
         });
       })
       .catch(error => console.log(error));
@@ -55,11 +53,11 @@ const App: React.FC<App.AppProps> = props => {
         .then(data => {
           data = JSON.parse(data);
           if (data.ok) {
-            this.props.onChange({
-              type: "AUTH_SUCCESS",
+            onChange({
+              type: 'AUTH_SUCCESS',
               token: data
             });
-            this.getChannelList(data.access_token);
+            getChannelList(data.access_token);
           }
         })
         .catch(err => console.error(err));
@@ -67,21 +65,22 @@ const App: React.FC<App.AppProps> = props => {
   }
 
   function renderList() {
-    if (this.props.channels) {
+    if (channels) {
       return <ChannelsList />;
     }
+    return null;
   }
 
-  return this.props && this.props.channels && this.props.channels.channels.length === 0 ? (
-    <div className="wrapper">
+  return channels && channels.length === 0 ? (
+    <div className='wrapper'>
       <Title />
-      <FlatButton label="Login" onClick={this.login} />
+      <FlatButton label='Login' onClick={this.login} />
     </div>
   ) : (
-    <div className="wrapper">
+    <div className='wrapper'>
       <Title />
       <PreviewLink />
-      {this.renderList()}
+      {renderList()}
     </div>
   );
 };
