@@ -1,12 +1,8 @@
-import './component.css';
-import React, { Component } from 'react';
+import "./component.css";
+import React from "react";
 
-
-export const PreviewComponent = (props) => {
-  console.log(props)
-  return (
-    <div>
-      <div>Preview</div>
-    </div> 
-  )
-};
+export const PreviewComponent = props => (
+  <div>
+    <div>Preview</div>
+  </div>
+);

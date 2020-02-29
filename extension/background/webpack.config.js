@@ -1,30 +1,27 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-
-  entry: [
-    './background/src/index.js'
-  ],
+  entry: ["./background/src/index.js"],
 
   output: {
-    filename: 'background.js',
-    path: path.join(__dirname, '../', 'build')
+    filename: "background.js",
+    path: path.join(__dirname, "../", "build")
   },
 
   resolve: {
-    extensions: ['.js', '.json'],
-    modules: ['node_modules']
+    extensions: [".js", ".json"],
+    modules: ["node_modules"]
   },
 
   module: {
     rules: [
       {
         test: /\.(js)?$/,
-        loader: 'babel-loader',
+        loader: "babel-loader",
         exclude: /(node_modules)/,
-        include: path.join(__dirname, 'src'),
+        include: path.join(__dirname, "src"),
         query: {
-          presets: ['@babel/preset-react']
+          presets: ["@babel/preset-react"]
         }
       }
     ]
