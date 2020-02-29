@@ -6,21 +6,19 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 import './channelsList.css';
 
-export namespace ChannelsList {
-  export interface Props {
+export interface ChannelsListProps {
+  channels: {
     channels: {
-      channels: {
-        name_normalized: string;
-        id: number;
-      }[];
-    };
-    login: {
-      token: { access_token: string };
-    };
-  }
+      name_normalized: string;
+      id: number;
+    }[];
+  };
+  login: {
+    token: { access_token: string };
+  };
 }
 
-const ChannelsList: React.FC<ChannelsList.Props> = React.memo(({ channels, login }) =>
+const ChannelsList: React.FC<ChannelsListProps> = React.memo(({ channels, login }) =>
   channels.channels ? (
     <div className='channelsList'>
       <h2>Channels</h2>

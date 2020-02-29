@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import './app.css';
 import FlatButton from '@material-ui/core/Button/Button';
 import slack from 'slack';
-import { Title } from '../../components/title';
+import { Title } from '../../components/title/index';
 import ChannelsList from '../../components/channelsList/channelsList';
 import PreviewLink from '../../components/previewLink/container';
 
@@ -71,10 +71,10 @@ const App: React.FC<AppProps> = ({ onChange, channels }) => {
     return null;
   }
 
-  return channels && channels.length === 0 ? (
+  return channels && channels.channels.length === 0 ? (
     <div className='wrapper'>
       <Title />
-      <FlatButton label='Login' onClick={this.login} />
+      <FlatButton onClick={login} />
     </div>
   ) : (
     <div className='wrapper'>

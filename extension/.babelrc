@@ -1,9 +1,4 @@
 {
-    "presets": [
-        "@babel/preset-react"
-    ],
-    "plugins": [
-        "@babel/plugin-syntax-dynamic-import",
-        "@babel/plugin-proposal-export-default-from"
-    ]
+  "presets": ["@babel/typescript", "@babel/preset-react"],
+  "plugins": ["@babel/plugin-syntax-dynamic-import", "@babel/plugin-proposal-export-default-from"]
 }

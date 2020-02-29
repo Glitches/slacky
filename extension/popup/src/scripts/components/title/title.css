@@ -3,7 +3,7 @@ img {
   height: 24px;
 }
 
-.wrapTitle {
+.wrap-title {
   display: flex;
   flex-direction: row;
   border-bottom: 1px solid gray;
